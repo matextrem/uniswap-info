@@ -59,6 +59,15 @@ class TokenPage extends Component {
     } catch { }
   }
 
+  getSelectedExchange = token => {
+    // Directory Store
+    const {
+      state: { directory }
+    } = this.props.directoryStore
+
+    return directory.find(el => el.label === token);
+  }
+
   // switch active exchane
   switchActiveExchange = async address => {
     try {
@@ -103,7 +112,8 @@ class TokenPage extends Component {
       await this.props.directoryStore.fetchDirectory()
 
       // second, run "switchActiveExchange" with default exchange address
-      await this.switchActiveExchange(this.props.directoryStore.state.defaultExchangeAddress)
+      const defaultExchangeAddress = this.getSelectedExchange(this.props.match.params.token).value;
+      await this.switchActiveExchange(defaultExchangeAddress)
     } catch (err) {
       console.log('error:', err)
     }
@@ -127,7 +137,6 @@ class TokenPage extends Component {
     const {
       state: { directory }
     } = this.props.directoryStore
-
     // Transactions Store
     const {
       state: { transactions }
@@ -142,7 +151,6 @@ class TokenPage extends Component {
     const {
       state: { userNumPoolTokens, userPoolPercent }
     } = this.props.poolStore
-
     if (directory.length === 0)
       return (
         <Wrapper>
@@ -157,7 +165,7 @@ class TokenPage extends Component {
 
           <Select
             options={directory}
-            defaultValue={directory[0]}
+            defaultValue={this.getSelectedExchange(this.props.match.params.token)}
             onChange={select => {
               if (exchangeAddress !== select.value) this.switchActiveExchange(select.value)
             }}

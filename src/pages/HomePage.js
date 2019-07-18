@@ -30,7 +30,8 @@ class HomePage extends Component {
         market: el.underlying_name,
         market_size: Number(el.cash.value).toFixed(2),
         apr_rate: (Number(el.supply_rate.value) * 100).toFixed(2),
-        borrow_rate: (Number(el.borrow_rate.value) * 100).toFixed(2)
+        borrow_rate: (Number(el.borrow_rate.value) * 100).toFixed(2),
+        symbol: el.underlying_symbol
       }
     });
     if (data.length === 0)
@@ -78,7 +79,7 @@ class HomePage extends Component {
               </Box>
             </Flex>
             {displayData.map(el => (
-              <ListItem key={el.market}>
+              <ListItem key={el.market} onClick={() => this.props.history.push(`/${el.symbol}`)}>
                 <Divider />
                 <Flex flexWrap="wrap" p={12} justifyContent="space-between">
                   <Box pr={24} width={1 / 4}>
