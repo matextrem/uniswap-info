@@ -161,7 +161,7 @@ class TokenPage extends Component {
     return (
       <Wrapper>
         <Header px={24} py={3} bg={['mineshaft', 'transparent']} color={['white', 'black']}>
-          <Title />
+          <Title title="Info" />
 
           <Select
             options={directory}

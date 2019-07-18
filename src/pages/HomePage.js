@@ -43,7 +43,7 @@ class HomePage extends Component {
     return (
       <Wrapper>
         <Header px={24} py={3} bg={['mineshaft', 'transparent']} color={['white', 'black']}>
-          <Title />
+          <Title title="Liquidity pools list" />
         </Header>
         <Panel width={[1, 1, 1, 1 / 2]} m="0 auto" color="black" bg="white" className="-transition">
           <Card
