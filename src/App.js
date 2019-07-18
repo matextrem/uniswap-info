@@ -5,6 +5,7 @@ import Wrapper from './components/Theme'
 import Title from './components/Title'
 import FourByFour from './components/FourByFour'
 import Panel from './components/Panel'
+import Table from './components/Table'
 import Dashboard from './components/Dashboard'
 import Select from './components/Select'
 import Footer from './components/Footer'
@@ -55,7 +56,7 @@ class App extends Component {
         this.props.directoryStore.state.activeExchange.exchangeAddress,
         web3.eth.accounts[0] // eslint-disable-line
       )
-    } catch {}
+    } catch { }
   }
 
   // switch active exchane
@@ -198,7 +199,37 @@ class App extends Component {
               />
             </Panel>
           </Box>
-
+          <Panel rounded bg="white" area="profit">
+            <FourByFour
+              p={24}
+              topLeft={<Hint color="text">Value of your investment today </Hint>}
+              bottomLeft={
+                <Text fontSize={20} color="token" className="-transition" lineHeight={1.4} fontWeight={500}>
+                  $59.77
+                </Text>
+              }
+              topRight={<Hint color="text">Value when invested</Hint>}
+              bottomRight={
+                <Text fontSize={20} color="uniswappink" lineHeight={1.4} fontWeight={500}>
+                  $9.62
+                </Text>
+              }
+            />
+            <Divider />
+            <Box p={24}>
+              <Table
+                columns={3}
+                data={[
+                  "Net ROI",
+                  "Price ROI",
+                  "Uniswap ROI",
+                  "521.32%",
+                  "512.79%",
+                  "8.52%",
+                ]}
+              />
+            </Box>
+          </Panel>
           <Panel rounded bg="white" area="liquidity">
             <FourByFour
               p={24}
@@ -232,7 +263,6 @@ class App extends Component {
               }
             />
           </Panel>
-
           <Panel rounded bg="white" area="statistics">
             <Box p={24}>
               <Flex alignItems="center" justifyContent="space-between">
@@ -256,10 +286,8 @@ class App extends Component {
               </Flex>
             </Box>
             <Divider />
-
             <Box p={24}>{data && data.length > 0 ? <Chart symbol={symbol} data={data} /> : <Loader />}</Box>
           </Panel>
-
           <Panel rounded bg="white" area="exchange">
             <Box p={24}>
               <Hint color="textSubtext" mb={3}>
@@ -286,8 +314,8 @@ class App extends Component {
             {transactions && transactions.length > 0 ? (
               <TransactionsList transactions={transactions} tokenSymbol={symbol} />
             ) : (
-              <Loader />
-            )}
+                <Loader />
+              )}
           </Panel>
         </Dashboard>
 

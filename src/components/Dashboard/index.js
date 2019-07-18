@@ -9,6 +9,7 @@ const Dashboard = styled(Box)`
   grid-template-areas:
     'volume'
     'statistics'
+    'profit'
     'liquidity'
     'exchange'
     'transactions';
@@ -18,6 +19,7 @@ const Dashboard = styled(Box)`
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas:
       'volume liquidity'
+      'profit profit'
       'statistics statistics'
       'exchange exchange'
       'transactions transactions';
@@ -28,6 +30,7 @@ const Dashboard = styled(Box)`
     grid-template-columns: minmax(380px, 1fr) repeat(3, 1fr);
     grid-template-areas:
       'volume statistics statistics statistics'
+      'profit statistics statistics statistics'
       'liquidity statistics statistics statistics'
       'exchange transactions transactions transactions';
   }
