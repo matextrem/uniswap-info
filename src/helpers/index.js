@@ -4,10 +4,16 @@ import dayjs from 'dayjs'
 BigNumber.set({ EXPONENTIAL_AT: 50 })
 
 export const BASE_URL = 'https://uniswap-api.loanscan.io/'
+export const BASE_POOLS_URL = 'https://api.compound.finance/api/'
 
 export const toNiceDate = date => dayjs(date).format('MMM DD')
 
 export const toNiceDateYear = date => dayjs(date).format('MMMM DD, YYYY')
+
+export const toNicePrice = price => {
+  if (price > 1000000) return `${Number(price / 1000000).toFixed(2)}M`
+  return `${Number(price / 1000).toFixed(2)}k`
+}
 
 export const isWeb3Available = async () => {
   /* eslint-disable */
