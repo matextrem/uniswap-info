@@ -6,8 +6,9 @@ import Title from '../components/Title'
 import Footer from '../components/Footer'
 import Panel from '../components/Panel'
 import Loader from '../components/Loader'
+import Item from '../components/Item'
 import { Header, Divider } from '../components'
-import { toNicePrice } from '../helpers/'
+import { BASE_ICONS_URL, DEFAUL_ICON_LOGO, toNicePrice, notFoundLogo } from '../helpers/'
 
 
 export const ListItem = styled(Box)`
@@ -17,14 +18,35 @@ export const ListItem = styled(Box)`
   }
 `
 
+export const Logo = styled.img`
+  width: 24px;
+  height: 24px;
+  position: relative;
+  float: left;
+  bottom: 5px;
+  right: 10px;
+}
+  `
+
 class HomePage extends Component {
 
   async componentDidMount() {
     this.props.poolsListStore.fetchPools()
   }
 
+  getTitle(symbol) {
+    let uri = `${BASE_ICONS_URL}${symbol.toLowerCase()}@2x.png`;
+    if (notFoundLogo.includes(symbol))
+      uri = DEFAUL_ICON_LOGO;
+    return <div style={{ position: 'relative' }}>
+      <Logo src={uri} />
+      <span>{symbol}</span>
+    </div>
+  }
+
   render() {
     const { data } = this.props.poolsListStore.state;
+    const fields = ["Market", "Market Size", "Supply APR", "Borrow APR"];
     const displayData = data.map(el => {
       return {
         market: el.underlying_name,
@@ -53,56 +75,23 @@ class HomePage extends Component {
             boxShadow='0 2px 16px rgba(0, 0, 0, 0.25)'
           >
             <Flex flexWrap="wrap" justifyContent="space-between">
-              <Box>
-                <Text color="textDim" textAlign="right" fontWeight='bold'
-                  p={20} fontSize={[12, 16]}>
-                  Market
-                    </Text>
-              </Box>
-              <Box>
-                <Text color="textDim" textAlign="right" fontWeight='bold'
-                  p={20} fontSize={[12, 16]}>
-                  Market Size
-                    </Text>
-              </Box>
-              <Box>
-                <Text color="textDim" textAlign="right" fontWeight='bold'
-                  p={20} fontSize={[12, 16]}>
-                  Supply APR
-                    </Text>
-              </Box>
-              <Box>
-                <Text color="textDim" textAlign="right" fontWeight='bold'
-                  p={20} fontSize={[12, 16]}>
-                  Borrow APR
-                    </Text>
-              </Box>
+              {fields.map(field => (
+                <Box key={field}>
+                  <Text color="textDim" textAlign="right" fontWeight='bold'
+                    p={20} fontSize={[12, 16]}>
+                    {field}
+                  </Text>
+                </Box>
+              ))}
             </Flex>
             {displayData.map(el => (
               <ListItem key={el.market} onClick={() => this.props.history.push(`/${el.symbol}`)}>
                 <Divider />
                 <Flex flexWrap="wrap" p={12} justifyContent="space-between">
-                  <Box pr={24} width={1 / 4}>
-                    <Text textAlign="left" fontWeight='bold'
-                      p={20} fontSize={[12, 16]}>
-                      {el.market}
-                    </Text>
-                  </Box>
-                  <Box pr={24} width={1 / 4}>
-                    <Text textAlign="right" p={20} fontSize={[12, 16]}>
-                      ${toNicePrice(el.market_size)}
-                    </Text>
-                  </Box>
-                  <Box pr={24} width={1 / 4}>
-                    <Text textAlign="right" p={20} fontSize={[12, 16]} >
-                      {el.apr_rate}%
-                      </Text>
-                  </Box>
-                  <Box pr={24} width={1 / 4}>
-                    <Text textAlign="right" p={20} fontSize={[12, 16]} >
-                      {el.borrow_rate}%
-                      </Text>
-                  </Box>
+                  <Item title={this.getTitle(el.symbol)} styles={{ textAlign: "left", fontWeight: 'bold' }} />
+                  <Item title={toNicePrice(el.market_size)} styles={{ textAlign: "left" }} />
+                  <Item title={`${el.apr_rate}%`} styles={{ textAlign: 'right' }} />
+                  <Item title={`${el.borrow_rate}%`} styles={{ textAlign: 'right' }} />
                 </Flex>
               </ListItem>
             ))}

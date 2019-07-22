@@ -5,6 +5,9 @@ BigNumber.set({ EXPONENTIAL_AT: 50 })
 
 export const BASE_URL = 'https://uniswap-api.loanscan.io/'
 export const BASE_POOLS_URL = 'https://api.compound.finance/api/'
+export const BASE_ICONS_URL = 'https://static.coincap.io/assets/icons/'
+
+export const DEFAUL_ICON_LOGO = 'https://coincap.io/static/logo_mark.png'
 
 export const toNiceDate = date => dayjs(date).format('MMM DD')
 
@@ -14,7 +17,7 @@ export const toNicePrice = price => {
   if (price > 1000000) return `${Number(price / 1000000).toFixed(2)}M`
   return `${Number(price / 1000).toFixed(2)}k`
 }
-
+export const notFoundLogo = ["WBTC"];
 export const isWeb3Available = async () => {
   /* eslint-disable */
   if (typeof window.ethereum !== 'undefined') {
