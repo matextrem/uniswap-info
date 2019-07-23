@@ -112,7 +112,7 @@ class TokenPage extends Component {
       await this.props.directoryStore.fetchDirectory()
 
       // second, run "switchActiveExchange" with default exchange address
-      const defaultExchangeAddress = this.getSelectedExchange(this.props.match.params.token).value;
+      const defaultExchangeAddress = this.getSelectedExchange(this.props.match.params.token).value
       await this.switchActiveExchange(defaultExchangeAddress)
     } catch (err) {
       console.log('error:', err)
@@ -162,10 +162,9 @@ class TokenPage extends Component {
       <Wrapper>
         <Header px={24} py={3} bg={['mineshaft', 'transparent']} color={['white', 'black']}>
           <Title title="Info" />
-
           <Select
             options={directory}
-            defaultValue={this.getSelectedExchange(this.props.match.params.token)}
+            defaultValue={this.getSelectedExchange(this.props.match.params.token) || directory[0]}
             onChange={select => {
               if (exchangeAddress !== select.value) this.switchActiveExchange(select.value)
             }}

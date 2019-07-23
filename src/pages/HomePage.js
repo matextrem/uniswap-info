@@ -5,16 +5,17 @@ import Wrapper from '../components/Theme'
 import Title from '../components/Title'
 import Footer from '../components/Footer'
 import Panel from '../components/Panel'
+import Select from '../components/Select'
 import Loader from '../components/Loader'
 import Item from '../components/Item'
 import { Header, Divider } from '../components'
-import { BASE_ICONS_URL, DEFAUL_ICON_LOGO, toNicePrice, notFoundLogo } from '../helpers/'
+import { BASE_ICONS_URL, DEFAUL_ICON_LOGO, toNicePrice, notFoundLogo, homeFilters } from '../helpers/'
 
 
 export const ListItem = styled(Box)`
   &:hover {
     background-color: rgba(43, 43, 43, 0.05);
-    cursor: pointer;
+    cursor: ${props => props.disabled ? "not-allowed" : "pointer"};
   }
 `
 
@@ -66,6 +67,11 @@ class HomePage extends Component {
       <Wrapper>
         <Header px={24} py={3} bg={['mineshaft', 'transparent']} color={['white', 'black']}>
           <Title title="Liquidity pools list" />
+          <Select
+            placeholder="Select a filter"
+            options={homeFilters}
+            onChange={select => this.props.poolsListStore.filterPools(select.filter)}
+          />
         </Header>
         <Panel width={[1, 1, 1, 1 / 2]} m="0 auto" color="black" bg="white" className="-transition">
           <Card
@@ -85,7 +91,7 @@ class HomePage extends Component {
               ))}
             </Flex>
             {displayData.map(el => (
-              <ListItem key={el.market} onClick={() => this.props.history.push(`/${el.symbol}`)}>
+              <ListItem disabled={el.symbol === "ETH"} key={el.market} onClick={() => el.symbol !== "ETH" && this.props.history.push(`/${el.symbol}`)}>
                 <Divider />
                 <Flex flexWrap="wrap" p={12} justifyContent="space-between">
                   <Item title={this.getTitle(el.symbol)} styles={{ textAlign: "left", fontWeight: 'bold' }} />

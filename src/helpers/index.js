@@ -36,6 +36,38 @@ export const isWeb3Available = async () => {
   }
   /* eslint-enable */
 }
+export const homeFilters = [
+  {
+    label: 'Market size ASC',
+    value: 'mkt_asc',
+    filter: (a, b) => a.cash.value - b.cash.value
+  },
+  {
+    label: 'Market size DESC',
+    value: 'mkt_desc',
+    filter: (a, b) => b.cash.value - a.cash.value
+  },
+  {
+    label: 'Supply APR ASC',
+    value: 'supply_asc',
+    filter: (a, b) => a.supply_rate.value - b.supply_rate.value
+  },
+  {
+    label: 'Supply APR DESC',
+    value: 'supply_desc',
+    filter: (a, b) => b.supply_rate.value - a.supply_rate.value
+  },
+  {
+    label: 'Borrow APR ASC',
+    value: 'borrow_asc',
+    filter: (a, b) => a.borrow_rate.value - b.borrow_rate.value
+  },
+  {
+    label: 'Borrow APR DESC',
+    value: 'borrow_desc',
+    filter: (a, b) => b.borrow_rate.value - a.borrow_rate.value
+  },
+];
 
 export const toK = (num, fixed) => {
   const formatter = divideBy => (fixed === true ? Number(num / divideBy).toFixed(4) : Number(num / divideBy))

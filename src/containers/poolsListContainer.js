@@ -7,6 +7,10 @@ export class PoolsListContainer extends Container {
         data: [],
     }
 
+    filterPools(filter) {
+        this.setState({ data: this.state.data.sort(filter) });
+    }
+
     async fetchPools() {
         try {
             const data = await fetch(`${BASE_POOLS_URL}v2/ctoken`)
