@@ -48,22 +48,22 @@ export const homeFilters = [
     filter: (a, b) => b.cash.value - a.cash.value
   },
   {
-    label: 'Supply APR ASC',
+    label: 'Net ROI ASC',
     value: 'supply_asc',
     filter: (a, b) => a.supply_rate.value - b.supply_rate.value
   },
   {
-    label: 'Supply APR DESC',
+    label: 'Net ROI DESC',
     value: 'supply_desc',
     filter: (a, b) => b.supply_rate.value - a.supply_rate.value
   },
   {
-    label: 'Borrow APR ASC',
+    label: 'Equivalent APR ASC',
     value: 'borrow_asc',
     filter: (a, b) => a.borrow_rate.value - b.borrow_rate.value
   },
   {
-    label: 'Borrow APR DESC',
+    label: 'Equivalent APR DESC',
     value: 'borrow_desc',
     filter: (a, b) => b.borrow_rate.value - a.borrow_rate.value
   },

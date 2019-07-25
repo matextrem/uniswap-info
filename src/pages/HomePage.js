@@ -47,7 +47,7 @@ class HomePage extends Component {
 
   render() {
     const { data } = this.props.poolsListStore.state;
-    const fields = ["Market", "Market Size", "Supply APR", "Borrow APR"];
+    const fields = ["Market", "Market Size", "Net ROI", "Equivalent APR"];
     const displayData = data.map(el => {
       return {
         market: el.underlying_name,
@@ -96,7 +96,7 @@ class HomePage extends Component {
                 <Flex flexWrap="wrap" p={12} justifyContent="space-between">
                   <Item title={this.getTitle(el.symbol)} styles={{ textAlign: "left", fontWeight: 'bold' }} />
                   <Item title={toNicePrice(el.market_size)} styles={{ textAlign: "left" }} />
-                  <Item title={`${el.apr_rate}%`} styles={{ textAlign: 'right' }} />
+                  <Item title={`${el.apr_rate}%`} styles={{ textAlign: 'center' }} />
                   <Item title={`${el.borrow_rate}%`} styles={{ textAlign: 'right' }} />
                 </Flex>
               </ListItem>
